@@ -1,8 +1,8 @@
 # Line Up Notifier
 
-The software reads video stream from connected webcam or Bilibili Live (downloaded using `bilibili-live-recorder`, will be sent to `rtsp-simple-server` via `ffmpeg` first), and analyzes the stream with `yolov7`.
+The software reads video stream from connected webcam or Bilibili Live (downloaded using [bilibili-live-recorder](https://github.com/zachMelody/bilibili-live-recorder), will be sent to [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server) via [ffmpeg](https://github.com/FFmpeg/FFmpeg) first), and analyzes the stream with [yolov7](https://github.com/WongKinYiu/yolov7).
 
-After getting a rough number of people in stream, it sends a warning message to a certain QQ group using `nonebot`, if the number is low enough.
+After getting a rough number of people in stream, it sends a warning message to a certain QQ group using [Nonebot](https://github.com/nonebot/nonebot), if the number is low enough.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ In `qq_bot/localize.py`, edit function `send` and/or `interp`.
 
 ## Deploy
 
-[1] Execute the following commands in root folder:
+Execute the following commands in root folder:
 
 ```shell
 docker build -t go-cqhttp ./go-cqhttp
@@ -49,12 +49,13 @@ docker build -t nab-server ./go-server/src
 docker build -t nab-yolov7 ./yolov7
 ```
 
-[2] In `compose-files`, execute `docker-compose up -d`
+In `compose-files`, execute `docker-compose up -d`.
 
 ## Stack
 
 - Golang: [Gin](https://github.com/gin-gonic/gin), [Gorm](https://github.com/go-gorm/gorm), [go-cqhttp](https://github.com/Mrs4s/go-cqhttp), [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server)
 - Python: [yolov7](https://github.com/WongKinYiu/yolov7), [Nonebot](https://github.com/nonebot/nonebot), [bilibili-live-recorder](https://github.com/zachMelody/bilibili-live-recorder)
+- [ffmpeg](https://github.com/FFmpeg/FFmpeg)
 - Mysql
 
 ## Contribute
