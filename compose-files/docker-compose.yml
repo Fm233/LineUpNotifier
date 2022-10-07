@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  nab-yolov7:
+    image: nab-yolov7:latest
+    volumes:
+      - images:/app/images
+    depends_on:
+      - live
+      - qq-bot
+      - nab-server
+
+  live:
+    image: bili-live-rec:latest
+    command: sh -c "python live_rec.py --room ROOM_ID"
+    depends_on:
+      - rtsp-server
+
+  qq-bot:
+    image: qq-bot:latest
+    depends_on:
+      - go-cqhttp
+      - nab-server
+
+  nab-server:
+    image: nab-server:latest
+    depends_on:
+      - mysql
+
+  rtsp-server:
+    image: aler9/rtsp-simple-server:latest
+
+  go-cqhttp:
+    image: go-cqhttp:latest
+    volumes:
+      - images:/app/data/images
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: PASSWORD
+      MYSQL_DATABASE: data
+
+volumes:
+  data:
+  images:
