@@ -23,6 +23,7 @@ In `compose-files/docker-compose.yml`, edit `ROOM_ID`.
 ### Edit MySQL Password
 
 In `compose-files/docker-compose.yml`, edit `PASSWORD`.
+In `go-server/src/main.go` line 26, edit `secret`.
 
 ### Edit QQ Debugger and Group
 

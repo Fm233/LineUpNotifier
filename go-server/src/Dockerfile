@@ -17,13 +17,14 @@ RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -a -o go-server .
 FROM alpine:3.16 AS final
 WORKDIR /app
 
-# 修改时区
+# 修改时区并下载 curl
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
     && apk update \
     && apk add --no-cache tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
-    && apk del tzdata
+    && apk del tzdata \
+    && apk --no-cache add curl
 
 # 复制资源
 COPY --from=builder /build/go-server ./

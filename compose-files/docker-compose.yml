@@ -24,8 +24,14 @@ services:
 
   nab-server:
     image: nab-server:latest
+    restart: unless-stopped
     depends_on:
       - mysql
+    healthcheck:
+      test: curl --fail 'http://localhost:8000/ping' || exit 1
+      interval: 10s
+      timeout: 1s
+      retries: 5
 
   rtsp-server:
     image: aler9/rtsp-simple-server:latest
@@ -37,11 +43,17 @@ services:
 
   mysql:
     image: mysql:5.7
+    restart: unless-stopped
     volumes:
       - data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: PASSWORD
       MYSQL_DATABASE: data
+    healthcheck:
+      test: curl --fail 'http://localhost:3306' || exit 1
+      interval: 10s
+      timeout: 1s
+      retries: 5
 
 volumes:
   data:

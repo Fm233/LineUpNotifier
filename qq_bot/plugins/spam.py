@@ -38,6 +38,9 @@ async def _():
         cooldown = 0
 
     # Error block
+    if cnt == 0:
+        print('[Error] 缓冲区没有样本！')
+        return
     if detect_data.not_timely(tub):
         print('[Error] 消息失去时效性！')
         return
